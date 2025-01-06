@@ -1,13 +1,10 @@
 class Buy:
-    total = 10  # Shared stock for all purchases
+    total = 10
 
     def __init__(self, quantity):
-        self.quantity = quantity  # Validate via the setter
+        self.quantity = quantity
 
     def inventory_control(self):
-        """
-        Handles purchase logic, updating the total stock and tracking purchased items.
-        """
         count = 0
         success = True
         for _ in range(self.quantity):
@@ -18,25 +15,20 @@ class Buy:
                 success = False
                 return success, Buy.total, count
         return success, Buy.total, count
-
+    
+    
     @property
     def quantity(self):
         return self._quantity
-
+    
     @quantity.setter
     def quantity(self, quantity):
-        """
-        Validates that the quantity is greater than 0.
-        """
         if quantity < 1:
             raise ValueError("The number of items you are buying must be greater than 0")
         self._quantity = quantity
-
+    
 
 def main():
-    """
-    Main function to handle user input and process the purchase.
-    """
     buy = get_info()
     success, remaining, count = buy.inventory_control()
     print()
@@ -49,13 +41,11 @@ def main():
 
 
 def get_info():
-    """
-    Handles user input for quantity and returns a valid Buy instance.
-    """
     while True:
         try:
             quantity = int(input("How many items do you want to purchase?: "))
-            return Buy(quantity)  # Return a valid Buy object
+            buy = Buy(quantity)
+            return buy
         except ValueError as e:
             print(f"Invalid input: {e}")
         except Exception as e:
